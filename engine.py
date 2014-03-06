@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 import json
+import difflib
 
 #{ 'document': ['terms', 'terms'],
 #  'document2': ['1','2','3'],
@@ -21,6 +22,22 @@ def weighted_search_engine(index, query):
 
     return results
 
+def guessy_weighted_search_engine(index, query):
+    results = {}
+    search_terms = query.split()
+    for doc_name, terms in index.iteritems():
+        matches = 0
+        for search_term in search_terms:
+            search_termys = difflib.get_close_matches(search_term, terms)
+            for search_termy in search_termys:
+                if search_termy in terms:
+                    matches += 1
+
+        rating = float(matches) / len(search_terms)
+        results[doc_name] = rating
+
+    return results
+
 if __name__ == '__main__':
     search_query = raw_input('Search terms:')
     index = json.load(open('index.txt'))
@@ -35,4 +52,10 @@ if __name__ == '__main__':
     print(
         'Weighted search engine returns: %s' %
         weighted_search_engine(index=index, query=search_query)
+    )
+
+    print('')
+    print(
+        'Guessy weighted search engine returns: %s' %
+        guessy_weighted_search_engine(index=index, query=search_query)
     )
