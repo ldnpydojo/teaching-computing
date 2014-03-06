@@ -40,4 +40,5 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
->>>>>>> 76ac09cbc35a30920d317863f50a380e47e8b264
+
+*.swp
