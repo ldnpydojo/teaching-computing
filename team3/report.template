@@ -1,0 +1,11 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Report for $name</h1>
+<h2>Performance</h2>
+$name has done $how_well in their work this year.
+<h2>Behaviour</h2>
+<h2>General Comments</h2>
+</p>
+</body>
