@@ -13,4 +13,6 @@ silly_excuse = {
     1: ['Needs to pay attention to reading'],
     2: ['should consider wearing blue wellies'],
     3: ['dog ate their homework'],
-    4: ['is always late']}
+    4: ['is always late'],
+    5: ['is a genius anyway']
+}

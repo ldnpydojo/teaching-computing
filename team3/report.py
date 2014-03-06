@@ -18,11 +18,16 @@ def report(name, subject, how_well, silly_excuse):
     render(template, name=name, subject=subject, how_well=how_well, silly_excuse=silly_excuse)
     os.startfile(output_filepath)
 
-def main():
-    name = random.choice(options.names)
+def main(name=None, grade=None):
+    name = name or random.choice(options.names)
     subject = random.choice(options.subjects)
-    how_well = random.choice(list(options.grade_adjective))
-    adjective = random.choice(list(options.grade_adjective[how_well]))
+    if grade is not None:
+        grade = int(grade)
+        adjective = random.choice(options.grade_adjective[grade])
+    else:
+        how_well = random.choice(list(options.grade_adjective))
+        adjective = random.choice(list(options.grade_adjective[how_well]))
+
     n_silly_excuse = random.choice(list(options.silly_excuse))
     silly_excuse = random.choice(options.silly_excuse[n_silly_excuse])
     report(name, subject, adjective, silly_excuse)
