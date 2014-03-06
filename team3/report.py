@@ -9,22 +9,23 @@ template_filepath = "report.template"
 output_filepath = "report.html"
 
 def render(template, **kwargs):
-    print("kwargs=", kwargs)
     with open(output_filepath, "w") as f:
         f.write(template.safe_substitute(**kwargs))
 
-def report(name, subject, how_well):
+def report(name, subject, how_well, silly_excuse):
     with open(template_filepath) as f:
         template = string.Template(f.read())
-    render(template, name=name, subject=subject, how_well=how_well)
+    render(template, name=name, subject=subject, how_well=how_well, silly_excuse=silly_excuse)
     os.startfile(output_filepath)
 
 def main():
     name = random.choice(options.names)
     subject = random.choice(options.subjects)
-    how_well = random.choice(options.grade_adjective)
-    adjective = random.choice(options.grade_adjective[how_well])
-    report(name, subject, how_well)
+    how_well = random.choice(list(options.grade_adjective))
+    adjective = random.choice(list(options.grade_adjective[how_well]))
+    n_silly_excuse = random.choice(list(options.silly_excuse))
+    silly_excuse = random.choice(options.silly_excuse[n_silly_excuse])
+    report(name, subject, adjective, silly_excuse)
 
 if __name__ == '__main__':
     main(*sys.argv[1:])

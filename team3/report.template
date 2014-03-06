@@ -4,8 +4,8 @@
 <body>
 <h1>Report for $name</h1>
 <h2>Performance</h2>
-$name has done $how_well in their work this year.
-<h2>Behaviour</h2>
+$name has done $how_well in $subject this year.
 <h2>General Comments</h2>
+$silly_excuse
 </p>
 </body>
