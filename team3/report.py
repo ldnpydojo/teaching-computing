@@ -19,6 +19,16 @@ def report(name, subject, how_well, silly_excuse):
     os.startfile(output_filepath)
 
 def main(name=None, grade=None):
+    """Produce a school report either by selecting randomly from
+    preset lists or by accepting a name and a numeric grade. The
+    name will be passed through directly; the grade will result
+    in one of a set of appropriate pieces of text.
+
+    The parameters can be passed on the command line or passed
+    passed to the function when imported.
+
+    eg report.py Tim 3
+    """
     name = name or random.choice(options.names)
     subject = random.choice(options.subjects)
     if grade is not None:
