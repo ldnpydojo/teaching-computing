@@ -1,9 +1,7 @@
-<<<<<<< HEAD
 bin/*
 include/*
 lib/*
 local/*
-=======
 *.py[cod]
 
 # C extensions
