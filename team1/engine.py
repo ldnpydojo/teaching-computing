@@ -1,4 +1,6 @@
 #! /usr/bin/env python
+import os
+import sys
 import json
 import difflib
 
@@ -38,24 +40,49 @@ def guessy_weighted_search_engine(index, query):
 
     return results
 
+
+def display_search_results(engine_name, results):
+    print(engine_name)
+    if not results:
+        print('   <No reults>')
+        return
+    for i, result in enumerate(results, 1):
+        print('%d. %s' % (i, result))
+
+def sort_by_score(result_dict):
+    return [result
+            for result, score in
+            sorted(result_dict.items(), key=lambda res_score: res_score[1])
+            if score > 0
+        ]
+
+def load_index(filename):
+    if os.path.exists(filename):
+        return json.load(open(filename))
+    else:
+        print("Please run:\n\tpython get_documents.py > index.txt")
+        sys.exit()
+
 if __name__ == '__main__':
-    search_query = raw_input('Search terms:')
-    index = json.load(open('index.txt'))
-    print(
-        'Simple search engine returns: %s' %
+    index = load_index('index.txt')
+    search_query = raw_input('Search terms: ')
+    print('')
+    display_search_results(
+        'Simple search engine returns:',
         simple_search_engine(index=index, query=search_query)
     )
 
     # New line for readability
     print('')
-
-    print(
-        'Weighted search engine returns: %s' %
-        weighted_search_engine(index=index, query=search_query)
+    weighted_results = weighted_search_engine(index=index, query=search_query)
+    display_search_results(
+        'Weighted search engine returns:',
+        sort_by_score(weighted_results)
     )
 
     print('')
-    print(
-        'Guessy weighted search engine returns: %s' %
-        guessy_weighted_search_engine(index=index, query=search_query)
+    guessy_weighted_results = guessy_weighted_search_engine(index=index, query=search_query)
+    display_search_results(
+        'Guessy weighted search engine returns:',
+        sort_by_score(guessy_weighted_results)
     )
