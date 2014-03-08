@@ -50,11 +50,12 @@ def display_search_results(engine_name, results):
         print('%d. %s' % (i, result))
 
 def sort_by_score(result_dict):
-    return [result
-            for result, score in
-            sorted(result_dict.items(), key=lambda res_score: res_score[1])
-            if score > 0
-        ]
+    sorted_pairs = sorted(
+                        result_dict.items(),
+                        key=lambda res_score: res_score[1],
+                        reverse=True
+                    )
+    return [result for result, score in sorted_pairs if score > 0]
 
 def load_index(filename):
     if os.path.exists(filename):
@@ -63,16 +64,19 @@ def load_index(filename):
         print("Please run:\n\tpython get_documents.py > index.txt")
         sys.exit()
 
+
 if __name__ == '__main__':
     index = load_index('index.txt')
+
     search_query = raw_input('Search terms: ')
+
+    # New line for readability
     print('')
     display_search_results(
         'Simple search engine returns:',
         simple_search_engine(index=index, query=search_query)
     )
 
-    # New line for readability
     print('')
     weighted_results = weighted_search_engine(index=index, query=search_query)
     display_search_results(
